@@ -126,8 +126,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CasasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ServicioCasaController.cs" />
+    <Compile Include="Controllers\PersonasController.cs" />
+    <Compile Include="Controllers\RestaurantesController.cs" />
+    <Compile Include="Controllers\Servicios\ServicioBase.cs" />
+    <Compile Include="Controllers\Servicios\ServicioCasas.cs" />
+    <Compile Include="Controllers\Servicios\ServicioPersonas.cs" />
+    <Compile Include="Controllers\Servicios\ServicioRestaurantes.cs" />
+    <Compile Include="DataAccess\AccesoDatosSqlBase.cs" />
+    <Compile Include="DataAccess\AccesoDatosSql_Casas.cs" />
+    <Compile Include="DataAccess\AccesoDatosSql_Personas.cs" />
+    <Compile Include="DataAccess\AccesoDatosSql_Restaurant.cs" />
+    <Compile Include="DataAccess\IAccesoDatos_Casas.cs" />
+    <Compile Include="DataAccess\IAccesoDatos_Personas.cs" />
+    <Compile Include="DataAccess\IAccesoDatos_Restaurants.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -172,17 +185,21 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\ServicioCasa\ObtenerCasa.cshtml" />
+    <Content Include="Views\Home\Main.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Personas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Casas\" />
+    <Folder Include="Views\Restaurantes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
