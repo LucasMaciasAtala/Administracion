@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Ejercicio1.ViewModels.RestaurantVM>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>Restaurantes</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            Encargado
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ManagerNombreCompleto)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "Modificar", new { id = item.Id }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id }) |
+                @Html.ActionLink("Ver Empleados", "VerEmpleados", new { id = item.Id }) |
+            </td>
+        </tr>
+    }
+
+</table>

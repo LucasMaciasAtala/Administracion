@@ -1,0 +1,75 @@
+﻿@model Ejercicio1.Models.Restaurant
+@using Ejercicio1.Models
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.TItulo</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr />
+        <div class="form-horizontal">
+            <h4>Casa</h4>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @value = Model.Nombre } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", @value = Model.Direccion } })
+                    @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <hr />
+                    <h2>Seleccionar Encargado</h2>
+                    <table class="table">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Manager.NombreCompleto)</th>
+                            <th>@Html.DisplayNameFor(model => model.Manager.Documento)</th>
+                            <th>@Html.RadioButton("IdPropietario", string.Empty)Sin Propietario</th>
+                        </tr>
+                        @foreach (Encargado item in ViewBag.Managers) //Todo: marcar managar al modificar
+                        {
+                            <tr>
+                                <td>
+                                    @item.NombreCompleto
+                                </td>
+                                <td>
+                                    @item.Documento.ToString()
+                                </td>
+                                <td>
+                                    @Html.RadioButton("IdManager", item.Id.ToString()) <span>Seleccionar</span>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Agregar" class="btn btn-outline-primary" />
+                    @Html.ActionLink("Volver", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,17 +1,11 @@
 ﻿@model IEnumerable<Ejercicio1.Models.PersonaBase>
-@using Ejercicio1.Models;
 
 @{
-    ViewBag.Title = "Personas";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+   // ViewBag.Title = "_SelectorDePersonas";
 }
 
-<h2>Lista de Personas</h2>
-
-<p>
-    @Html.ActionLink("Agregar", "Agregar")
-</p>
 <table class="table">
+    @Html.BeginForm()
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -32,22 +26,20 @@
     {
         <tr>
             <td>
-                @item.Nombre
+                @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @item.Apellido
+                @Html.DisplayFor(modelItem => item.Apellido)
             </td>
             <td>
-                @item.Documento
+                @Html.DisplayFor(modelItem => item.Documento)
             </td>
             <td>
-                @item.Trabajo
+                @Html.DisplayFor(modelItem => item.Trabajo)
             </td>
             <td>
-                @Html.ActionLink("Modificar", "Modificar", new { id = item.Id }) |
-                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id }, new { onclick = "return confirm('Estas seguro de eliminar esta persona?');" }) @*Todo: Mejorar esto*@
+                @Html.RadioButton("IdPropietario", item.Id.ToString()) <span>Seleccionar</span>
             </td>
         </tr>
-
-    }
+          }
 </table>

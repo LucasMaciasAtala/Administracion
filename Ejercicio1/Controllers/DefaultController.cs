@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Ejercicio1.Controllers
 {
-    public class HomeController : Controller
+    public class DefaultController : Controller
     {
+        // GET: Default
         public ActionResult Index()
-        { 
-             return View();
+        {
+            return View();
         }
     }
 }

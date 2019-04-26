@@ -35,10 +35,9 @@ namespace Controllers
             {
                 throw new Exception("Verificar " + falla);
             }
-            else
-            {
+            
                 _accesoDatos.Agregar(casa);
-            }
+            
         }
 
         public void Eliminar(int id)
@@ -86,11 +85,11 @@ namespace Controllers
                 return false;
             }
 
-            if (casa.Propietario == null)
-            {
-                falla = "Propietario";
-                return false;
-            }
+            //if (casa.Propietario == null)
+            //{
+            //    falla = "Propietario";
+            //    return false;
+            //}
 
             falla = "ninguna";
             return true;

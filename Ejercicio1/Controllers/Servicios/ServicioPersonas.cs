@@ -131,7 +131,7 @@ namespace Controllers
             return documento >= 100000 && documento <= 99999999;
         }
 
-        private bool ValidarDocumento(PersonaBase _persona)
+        public bool ValidarDocumento(PersonaBase _persona)
         {
             var listPersonas = ObtenerTodos();
 

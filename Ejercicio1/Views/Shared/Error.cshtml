@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -6,8 +8,16 @@
 </head>
 <body>
     <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
+        <h1>Ups!</h1>
+        <h2> Hubo un error al procesar tu pedido.</h2>
+        @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+        {
+            <p>
+                <b>Nombre de la excepción:</b> @Model.Exception.Message<br />
+                <b>Controlador:</b> @Model.ControllerName<br />
+                <b>Acción:</b> @Model.ActionName
+            </p>
+        }
     </hgroup>
 </body>
 </html>

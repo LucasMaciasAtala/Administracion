@@ -63,7 +63,7 @@ namespace Controllers
         //--------------- Métodos Propios de Restaurant -------------------//
 
 
-        private List<PersonaBase> ObtenerPersonasSinEncargado()
+        public List<PersonaBase> ObtenerPersonasSinEncargado()
         {
             var listaPersonas = _servicioPersonas.ObtenerTodos();
             var listaSinManager = new List<PersonaBase>();

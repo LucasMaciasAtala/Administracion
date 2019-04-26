@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Ejercicio1.ViewModels.CasaVM>
+
+@{
+    ViewBag.Title = "Casas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Casas</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Agregar")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            Propietario
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Direccion
+            </td>
+            <td style="width:30%">
+                @item.Descripcion
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCompletoPropietario)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "Modificar", new { id = item.Id }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id }, new { onclick = "return confirm('Estas seguro de eliminar esta persona?');" })
+            </td>
+        </tr>
+    }
+</table>

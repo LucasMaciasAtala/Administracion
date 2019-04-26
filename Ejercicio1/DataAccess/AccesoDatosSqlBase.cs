@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace DataAccess
 {
@@ -40,9 +41,7 @@ namespace DataAccess
             }
             catch (Exception e)
             {
-                //Todo: Revisar.
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
+                throw new Exception(e.Message);
             }
             finally
             {
@@ -83,8 +82,7 @@ namespace DataAccess
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
+                throw new Exception(e.Message);
             }
             finally
             {
@@ -126,9 +124,7 @@ namespace DataAccess
             }
             catch (Exception e)
             {
-                //Todo: Revisar
-                Console.WriteLine(e.Message);
-                Console.ReadKey();
+                throw new Exception(e.Message);
             }
             finally
             {
@@ -142,7 +138,7 @@ namespace DataAccess
 
         private SqlConnection ObtenerConexion()
         {
-            var conexion = new SqlConnection();        
+            var conexion = new SqlConnection();
             var constructor = new SqlConnectionStringBuilder();
             constructor.DataSource = ConfigurationManager.AppSettings["Servidor"];
             constructor.InitialCatalog = ConfigurationManager.AppSettings["BaseDatos"];

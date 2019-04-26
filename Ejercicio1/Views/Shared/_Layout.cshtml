@@ -9,24 +9,27 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
         <div class="container">
             <div class="navbar-collapse">
                 <ul class="navbar-nav">
-                    <li>@Html.ActionLink("Administracion", "Index", "Home", new { @class = "nav-link navbar-brand active" })</li>
-                    <li>@Html.ActionLink("Personas", "Index", "Personas", new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Casas", "Index", "Casas", new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes", new { @class = " nav-link" })</li>
+                    <li>@Html.ActionLink("Administracion", "Index", "Home", routeValues: null,
+                             htmlAttributes: new { @class = "navbar-brand", @id = "navbarColor01" })</li>
+                    <li>@Html.ActionLink("Personas", "Index", "Personas", routeValues: null,
+                             htmlAttributes: new { @class = "nav-link", @id = "navbarColor01" })</li> 
+                    <li>@Html.ActionLink("Casas", "Index", "Casas", routeValues: null,
+                             htmlAttributes: new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Restaurantes", "Index", "Restaurantes", routeValues: null,
+                             htmlAttributes: new { @class = "nav-link", @id = "navbarColor01" })</li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container body-content">
-        @RenderSection("Botones", false);
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Administracion</p>
+            <p>&copy; @DateTime.Now.Year - Administración</p>
         </footer>
     </div>
 
