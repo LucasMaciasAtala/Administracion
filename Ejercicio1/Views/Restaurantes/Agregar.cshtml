@@ -15,7 +15,7 @@
     <div class="form-group">
         <div class="col-md-offset-2">
             <p>
-                <input type="submit" value="Guardar" class="btn btn-outline-primary" />
+                <input type="submit" value=@ViewBag.Boton class="btn btn-outline-primary" />
                 @Html.ActionLink("Volver", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-warning" })
             </p>
         </div>
@@ -30,7 +30,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control",  @required = true } })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control",  @required = true, @maxlength = 20 } })
                     @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
 
                 </div>
@@ -41,7 +41,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", @required = true } })
+                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control", @required = true, @maxlength = 30 } })
                     @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
 
                 </div>
@@ -57,7 +57,7 @@
                             <th>@Html.DisplayNameFor(model => model.Manager.Documento)</th>
                             <th>Encargado</th>
                         </tr>
-                        @foreach (Encargado item in ViewBag.Managers) //Todo: marcar manager al modificar
+                        @foreach (Encargado item in ViewBag.Managers)
                         {
                             <tr>
                                 <td>
@@ -67,7 +67,7 @@
                                     @item.Documento.ToString()
                                 </td>
                                 <td>
-                                    @Html.RadioButtonFor(model => model.Manager.Id, item.Id) <span>Seleccionar</span>
+                                    @Html.RadioButtonFor(model => model.Manager.Id, item.Id, htmlAttributes: new { @required = true }) <span>Seleccionar</span>
                                 </td>
                             </tr>
                         }

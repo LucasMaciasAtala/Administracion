@@ -34,7 +34,7 @@ namespace Administracion.Controllers
             ViewBag.Propietarios = new List<PersonaBase>(_servicioPersonas.ObtenerTodos());
             ViewBag.Titulo = "Agregar Casa";
             ViewBag.Boton = "Agregar";
-            return View(); 
+            return View();
         }
 
         [HttpPost, ActionName("Agregar")]
@@ -47,16 +47,13 @@ namespace Administracion.Controllers
                     var casa = new Casa();
                     TryUpdateModel(casa);
 
-                    if (idPropietario != string.Empty)
-                    {
-                        int.TryParse(idPropietario, out int id);
-                        casa.Propietario = _servicioPersonas.ObtenerPorId(id);
-                    }
-                    else
+                    if (idPropietario == string.Empty)//Input required valida previamente
                     {
                         return View("Error", new HandleErrorInfo(new Exception("Debe seleccionar un propietario"), "Persona", "Agregar"));
                     }
 
+                    int.TryParse(idPropietario, out int id);
+                    casa.Propietario = _servicioPersonas.ObtenerPorId(id);
                     _servicioCasas.Agregar(casa);
                 }
                 catch (Exception ex)
@@ -66,7 +63,7 @@ namespace Administracion.Controllers
             }
             else
             {
-                return View();
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"), "Casa", "Agregar"));
             }
 
             return RedirectToAction("Index");
@@ -91,26 +88,23 @@ namespace Administracion.Controllers
                     var casa = new Casa();
                     TryUpdateModel(casa);
 
-                    if (idPropietario != string.Empty)
-                    {
-                        int.TryParse(idPropietario, out int id);
-                        casa.Propietario = _servicioPersonas.ObtenerPorId(id);
-                    }
-                    else
+                    if (idPropietario == string.Empty) //Input required valida previamente
                     {
                         return View("Error", new HandleErrorInfo(new Exception("Debe seleccionar un propietario"), "Casa", "Agregar"));
                     }
 
+                    int.TryParse(idPropietario, out int id);
+                    casa.Propietario = _servicioPersonas.ObtenerPorId(id);
                     _servicioCasas.Modificar(casa);
                 }
                 catch (Exception ex)
                 {
-                    return View("Error", new HandleErrorInfo(ex, "Persona", "Modificar"));
+                    return View("Error", new HandleErrorInfo(ex, "Casa", "Modificar"));
                 }
             }
             else
             {
-                return View();
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"), "Casa", "Modificar"));
             }
 
             return RedirectToAction("Index");

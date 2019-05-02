@@ -34,6 +34,7 @@ namespace Administracion.Controllers
         public ActionResult Agregar()
         {
             ViewBag.Titulo = "Agregar Restaurant";
+            ViewBag.Boton = "Agregar";
             ViewBag.Managers = _servicioRestaurantes.ObtenerTodosManagers();
             return View();
         }
@@ -47,12 +48,7 @@ namespace Administracion.Controllers
                 {
                     var resto = new Restaurant();
                     TryUpdateModel(resto);
-
-                    //if (idManager != string.Empty)
-                    //{
-                    //    int.TryParse(idManager, out int Id);
-                        resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);
-                    //}
+                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);//Input required valida desde el cliente para evitar null values
                     _servicioRestaurantes.Agregar(resto);
                 }
                 catch (Exception ex)
@@ -73,10 +69,11 @@ namespace Administracion.Controllers
             var resto = _servicioRestaurantes.ObtenerPorId(id);
             ViewBag.Managers = _servicioRestaurantes.ObtenerTodosManagers();
             ViewBag.Titulo = "Modificar Restaurant";
+            ViewBag.Boton = "Modificar";
             return View("Agregar", resto);
         }
 
-         [HttpPost, ActionName("Modificar")]
+        [HttpPost, ActionName("Modificar")]
         public ActionResult ModificarPost()
         {
             if (ModelState.IsValid)
@@ -85,7 +82,7 @@ namespace Administracion.Controllers
                 {
                     var resto = new Restaurant();
                     TryUpdateModel(resto);
-                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);
+                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);//Input required valida desde el cliente para evitar null values
                     _servicioRestaurantes.Modificar(resto);
                 }
                 catch (Exception ex)

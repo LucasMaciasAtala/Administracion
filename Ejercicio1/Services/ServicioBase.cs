@@ -11,7 +11,7 @@
                 return false;
             }
 
-            if (aValidar.Length >= charLimite)
+            if (aValidar.Length > charLimite)
             {
                 return false;
             }
