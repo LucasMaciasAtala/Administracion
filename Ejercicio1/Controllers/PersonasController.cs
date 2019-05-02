@@ -90,7 +90,7 @@ namespace Administracion.Controllers
             }
             else
             {
-                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"),"Persona","Modificar"));
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"), "Persona", "Modificar"));
             }
 
             return RedirectToAction("Index");

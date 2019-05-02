@@ -48,7 +48,7 @@ namespace Administracion.Controllers
                 {
                     var restoVM = new RestaurantVM(new Restaurant());
                     TryUpdateModel(restoVM);
-                    var resto = restoVM.ObtenerRestaurantSinEncargado();                    
+                    var resto = restoVM.ObtenerRestaurantSinEncargado();
                     resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(restoVM.IdEncargado);
                     _servicioRestaurantes.Agregar(resto);
                 }
