@@ -1,24 +1,33 @@
-﻿@model Ejercicio1.Models.PersonaBase
-@using Ejercicio1.Models
+﻿@model Models.PersonaBase
+@using Models;
 
 @{
-    ViewBag.Title = "Agregar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Agregar</h2>
+<h2 class="mt-3">@ViewBag.Titulo</h2>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
+    <div class="form-group">
+        <div class="col-md-offset-2">
+            <p>
+                <input type="submit" value=@ViewBag.Boton class="btn btn-outline-primary" />
+                @Html.ActionLink("Volver", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-warning" })
+            </p>
+        </div>
+    </div>
+    <hr />
+
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true)
         <div class="form-group">
             @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @maxlength = 20 } })
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @maxlength = 20, @required = true,  } })
                 @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control", @maxlength = 20 } })
+                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control", @maxlength = 20, @required = true } })
                 @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,8 +43,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Documento, htmlAttributes: new { @class = "control-label col-md-2", })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Documento, new { htmlAttributes = new { @class = "form-control", @min = 1000000, @max = 99999999, @type = "number"} })
-                @Html.ValidationMessageFor(model => model.Documento,"",new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Documento, new { htmlAttributes = new { @class = "form-control", @min = 1000000, @max = 99999999, @type = "number",  @required = true } })
+                @Html.ValidationMessageFor(model => model.Documento, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -51,13 +60,6 @@
                     }
                     @Html.DropDownListFor(model => model.Trabajo, new List<SelectListItem>(lista), new { htmlAttributes = new { @class = "form - control" } })
                 }
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Agregar" class="btn btn-outline-primary" />
-                @Html.ActionLink("Volver", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-warning" })
             </div>
         </div>
     </div>

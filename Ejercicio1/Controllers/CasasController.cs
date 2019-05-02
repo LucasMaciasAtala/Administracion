@@ -1,11 +1,11 @@
-﻿using Controllers;
-using Ejercicio1.Models;
-using Ejercicio1.ViewModels;
+﻿using Models;
+using Administracion.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Services;
 
-namespace Ejercicio1.Controllers
+namespace Administracion.Controllers
 {
     public class CasasController : Controller
     {
@@ -29,16 +29,16 @@ namespace Ejercicio1.Controllers
             return View(casasVM);
         }
 
-        [HttpGet, ActionName("Agregar")]
         public ActionResult Agregar()
         {
             ViewBag.Propietarios = new List<PersonaBase>(_servicioPersonas.ObtenerTodos());
             ViewBag.Titulo = "Agregar Casa";
-            return View(new Casa()); //Se envía para evitar null values en EditFor
+            ViewBag.Boton = "Agregar";
+            return View(); 
         }
 
         [HttpPost, ActionName("Agregar")]
-        public ActionResult AgregarPost(string Idpropietario)
+        public ActionResult AgregarPost(string idPropietario)
         {
             if (ModelState.IsValid)
             {
@@ -47,17 +47,21 @@ namespace Ejercicio1.Controllers
                     var casa = new Casa();
                     TryUpdateModel(casa);
 
-                    if (Idpropietario != string.Empty)
+                    if (idPropietario != string.Empty)
                     {
-                        int.TryParse(Idpropietario, out int id);
+                        int.TryParse(idPropietario, out int id);
                         casa.Propietario = _servicioPersonas.ObtenerPorId(id);
+                    }
+                    else
+                    {
+                        return View("Error", new HandleErrorInfo(new Exception("Debe seleccionar un propietario"), "Persona", "Agregar"));
                     }
 
                     _servicioCasas.Agregar(casa);
                 }
                 catch (Exception ex)
                 {
-                    return View("Error", new HandleErrorInfo(ex, "Persona", "Agregar"));
+                    return View("Error", new HandleErrorInfo(ex, "Casa", "Agregar"));
                 }
             }
             else
@@ -68,17 +72,17 @@ namespace Ejercicio1.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public ActionResult Modificar(int id)
         {
             var casa = _servicioCasas.ObtenerPorId(id);
             ViewBag.Propietarios = new List<PersonaBase>(_servicioPersonas.ObtenerTodos());
             ViewBag.Titulo = "Modificar Casa";
+            ViewBag.Boton = "Modificar";
             return View("Agregar", casa);
         }
 
         [HttpPost]
-        public ActionResult Modificar(string IdPropietario)
+        public ActionResult Modificar(string idPropietario)
         {
             if (ModelState.IsValid)
             {
@@ -86,12 +90,17 @@ namespace Ejercicio1.Controllers
                 {
                     var casa = new Casa();
                     TryUpdateModel(casa);
-                    int.TryParse(IdPropietario, out int id);
-                    casa.Propietario = _servicioPersonas.ObtenerPorId(id);
-                    if (casa.Propietario == null)
+
+                    if (idPropietario != string.Empty)
                     {
-                        return View("Error", new HandleErrorInfo(new Exception("Debe seleccionar un propietario"), "Persona", "Agregar"));
+                        int.TryParse(idPropietario, out int id);
+                        casa.Propietario = _servicioPersonas.ObtenerPorId(id);
                     }
+                    else
+                    {
+                        return View("Error", new HandleErrorInfo(new Exception("Debe seleccionar un propietario"), "Casa", "Agregar"));
+                    }
+
                     _servicioCasas.Modificar(casa);
                 }
                 catch (Exception ex)
@@ -107,7 +116,6 @@ namespace Ejercicio1.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public ActionResult Eliminar(int id)
         {
             try

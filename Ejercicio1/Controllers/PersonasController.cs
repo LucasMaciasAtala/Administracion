@@ -1,10 +1,10 @@
-﻿using Controllers;
-using Ejercicio1.Models;
+﻿using Services;
+using Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System;
 
-namespace Ejercicio1.Controllers
+namespace Administracion.Controllers
 {
     public class PersonasController : Controller
     {
@@ -17,19 +17,18 @@ namespace Ejercicio1.Controllers
 
         public ActionResult Index()
         {
-            //Todo: hacer que las listas se adecuen a  la pantalla
             var lista = new List<PersonaBase>(_servicioPersonas.ObtenerTodos());
             return View(lista);
         }
 
-        [HttpGet, ActionName("Agregar")]
         public ActionResult Agregar()
         {
+            ViewBag.Titulo = "Agregar Persona";
+            ViewBag.Boton = "Agregar";
             return View();
         }
 
         [HttpPost, ActionName("Agregar")]
-        //Solo necesario para overload de métodos, en este caso se diferencia por parámetros
         public ActionResult Agregar(EnumTipoTrabajo trabajo)
         {
             if (ModelState.IsValid)
@@ -53,17 +52,18 @@ namespace Ejercicio1.Controllers
             }
             else
             {
-                return View();
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"), "Persona", "Agregar"));
             }
 
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public ActionResult Modificar(int id)
         {
             var persona = _servicioPersonas.ObtenerPorId(id);
-            return View(persona);
+            ViewBag.Titulo = "Modificar Persona";
+            ViewBag.Boton = "Modficar";
+            return View("Agregar", persona);
         }
 
         [HttpPost]
@@ -90,14 +90,12 @@ namespace Ejercicio1.Controllers
             }
             else
             {
-                return View();
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"),"Persona","Modificar"));
             }
 
             return RedirectToAction("Index");
         }
 
-        //Todo: Como hacerlo con httpPost?
-        [HttpPost]
         public ActionResult Eliminar(int id)
         {
             try

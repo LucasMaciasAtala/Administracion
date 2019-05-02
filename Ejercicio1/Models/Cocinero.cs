@@ -1,11 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Ejercicio1.Models
+﻿namespace Models
 {
     public class Cocinero : PersonaBase
     {
-        public List<int> Pedidos { get; set; }
-
-     
     }
 }

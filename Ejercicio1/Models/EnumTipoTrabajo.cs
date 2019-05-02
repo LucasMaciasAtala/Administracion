@@ -1,4 +1,4 @@
-﻿namespace Ejercicio1.Models
+﻿namespace Models
 {
     public enum EnumTipoTrabajo 
     {

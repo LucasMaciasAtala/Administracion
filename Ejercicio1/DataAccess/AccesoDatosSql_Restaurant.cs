@@ -1,4 +1,4 @@
-﻿using Ejercicio1.Models;
+﻿using Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;

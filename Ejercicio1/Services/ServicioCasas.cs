@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using DataAccess;
-using Ejercicio1.Models;
+using Models;
 
-namespace Controllers
+namespace Services
 {
     public class ServicioCasas : ServicioBase
     {
@@ -24,7 +24,6 @@ namespace Controllers
 
         public Casa ObtenerPorId(int id)
         {
-            // TODO: Que pasa si el ID no existe?. Falta validación.
             ValidarId(id);
             return _accesoDatos.ObtenerPorId(id);
         }
@@ -35,9 +34,7 @@ namespace Controllers
             {
                 throw new Exception("Verificar " + falla);
             }
-            
-                _accesoDatos.Agregar(casa);
-            
+            _accesoDatos.Agregar(casa);
         }
 
         public void Eliminar(int id)
@@ -51,10 +48,8 @@ namespace Controllers
             {
                 throw new Exception("Verificar " + falla);
             }
-            else
-            {
-                _accesoDatos.Modificar(casa);
-            }
+
+            _accesoDatos.Modificar(casa);
         }
 
         //--------------- Metodos Propios de Casas -------------------//
@@ -73,13 +68,13 @@ namespace Controllers
 
         private bool ValidarCasa(Casa casa, out string falla)
         {
-            if (!ValidarExtension(casa.Direccion.Trim(), 50))
+            if (casa.Direccion == null || !ValidarExtension(casa.Direccion.Trim(), 50))
             {
                 falla = "Direccion";
                 return false;
             }
 
-            if (!ValidarExtension(casa.Descripcion.Trim(), 200))
+            if (casa.Descripcion == null || !ValidarExtension(casa.Descripcion.Trim(), 200))
             {
                 falla = "Descripcion";
                 return false;

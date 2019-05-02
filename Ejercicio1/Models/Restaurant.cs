@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Ejercicio1.Models
+namespace Models
 {
     public class Restaurant : ConstruccionBase
     {

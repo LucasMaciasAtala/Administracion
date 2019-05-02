@@ -1,13 +1,11 @@
-﻿using Controllers;
-using Ejercicio1.Models;
-using Ejercicio1.ViewModels;
+﻿using Administracion.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Services;
+using Models;
 
-namespace Ejercicio1.Controllers
+namespace Administracion.Controllers
 {
     public class RestaurantesController : Controller
     {
@@ -33,15 +31,15 @@ namespace Ejercicio1.Controllers
             return View(restosVM);
         }
 
-        [HttpGet]
         public ActionResult Agregar()
         {
-            ViewBag.TItulo = "Agregar Restaurant";
-            return View(new Restaurant());
+            ViewBag.Titulo = "Agregar Restaurant";
+            ViewBag.Managers = _servicioRestaurantes.ObtenerTodosManagers();
+            return View();
         }
 
         [HttpPost, ActionName("Agregar")]
-        public ActionResult AgregarPost(string IdManager)
+        public ActionResult AgregarPost()
         {
             if (ModelState.IsValid)
             {
@@ -50,11 +48,11 @@ namespace Ejercicio1.Controllers
                     var resto = new Restaurant();
                     TryUpdateModel(resto);
 
-                    if (IdManager != string.Empty)
-                    {
-                        int.TryParse(IdManager, out int Id);
-                        resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(Id);
-                    }
+                    //if (idManager != string.Empty)
+                    //{
+                    //    int.TryParse(idManager, out int Id);
+                        resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);
+                    //}
                     _servicioRestaurantes.Agregar(resto);
                 }
                 catch (Exception ex)
@@ -64,13 +62,12 @@ namespace Ejercicio1.Controllers
             }
             else
             {
-                return View();
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"), "Restaurant", "Agregar"));
             }
 
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
         public ActionResult Modificar(int id)
         {
             var resto = _servicioRestaurantes.ObtenerPorId(id);
@@ -79,8 +76,8 @@ namespace Ejercicio1.Controllers
             return View("Agregar", resto);
         }
 
-        [HttpPost]
-        public ActionResult ModificarPost(string IdManager)
+         [HttpPost, ActionName("Modificar")]
+        public ActionResult ModificarPost()
         {
             if (ModelState.IsValid)
             {
@@ -88,18 +85,97 @@ namespace Ejercicio1.Controllers
                 {
                     var resto = new Restaurant();
                     TryUpdateModel(resto);
-                    int.TryParse(IdManager, out int id);
-                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(id);
+                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);
                     _servicioRestaurantes.Modificar(resto);
                 }
                 catch (Exception ex)
                 {
-                    return View("Error", new HandleErrorInfo(ex, "Persona", "Modificar"));
+                    return View("Error", new HandleErrorInfo(ex, "Restaurant", "Modificar"));
                 }
             }
             else
             {
-                return View();
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"), "Restaurant", "Modificar"));
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult VerEmpleados(int id)
+        {
+            var resto = _servicioRestaurantes.ObtenerPorId(id);
+            var empleadosVM = new EmpleadosVM();
+            empleadosVM.NombreResto = resto.Nombre;
+            empleadosVM.IdResto = resto.Id;
+
+            if (resto.Manager != null)
+            {
+                empleadosVM.ManagerValido = true;
+            }
+
+            foreach (var persona in resto.Empleados)
+            {
+                empleadosVM.Contratados.Add(new CheckModel()
+                {
+                    IdEmpleado = persona.Id,
+                    Documento = persona.Documento,
+                    NombreCompleto = persona.NombreCompleto,
+                    Trabajo = persona.Trabajo
+                });
+            }
+
+            foreach (var persona in _servicioRestaurantes.ObtenerPersonasNoContratadas(resto.Empleados))
+            {
+                empleadosVM.AContratar.Add(new CheckModel()
+                {
+                    IdEmpleado = persona.Id,
+                    Documento = persona.Documento,
+                    NombreCompleto = persona.NombreCompleto,
+                    Trabajo = persona.Trabajo
+                });
+            }
+            return View(empleadosVM);
+        }
+
+        [HttpPost]
+        public ActionResult VerEmpleadosPost(EmpleadosVM modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var resto = _servicioRestaurantes.ObtenerPorId(modelo.IdResto);
+
+                    if (modelo.Contratados != null)
+                    {
+                        foreach (var item in modelo.Contratados)
+                        {
+                            if (item.Checkeado)
+                            {
+                                _servicioRestaurantes.Desemplear(resto, _servicioPersonas.ObtenerPorId(item.IdEmpleado));
+                            }
+                        }
+                    }
+
+                    if (modelo.AContratar != null)
+                    {
+                        foreach (var item in modelo.AContratar)
+                        {
+                            if (item.Checkeado)
+                            {
+                                _servicioRestaurantes.Emplear(resto, _servicioPersonas.ObtenerPorId(item.IdEmpleado));
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return View("Error", new HandleErrorInfo(ex, "Restaurant", "Ver Empleados"));
+                }
+            }
+            else
+            {
+                return View("Error", new HandleErrorInfo(new Exception("Comuníquese con soporte técnico"), "Restaurant", "Ver Empleados"));
             }
 
             return RedirectToAction("Index");

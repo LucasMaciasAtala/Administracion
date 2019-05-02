@@ -1,15 +1,19 @@
-﻿@model IEnumerable<Ejercicio1.ViewModels.CasaVM>
+﻿@model IEnumerable<Administracion.ViewModels.CasaVM>
 
 @{
     ViewBag.Title = "Casas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Casas</h2>
+<h2 class="mt-3">Lista de Casas</h2>
+<hr />
 
-<p>
-    @Html.ActionLink("Agregar", "Agregar")
-</p>
+<div class="col-md-offset-2">
+    <p>
+    @Html.ActionLink("Agregar", "Agregar", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-primary" })
+    </p>
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -38,7 +42,7 @@
             </td>
             <td>
                 @Html.ActionLink("Modificar", "Modificar", new { id = item.Id }) |
-                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id }, new { onclick = "return confirm('Estas seguro de eliminar esta persona?');" })
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id }, new { onclick = "return confirm('Estas seguro de eliminar esta casa?');" })
             </td>
         </tr>
     }

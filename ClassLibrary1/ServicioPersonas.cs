@@ -1,9 +1,9 @@
-﻿using DataAccess;
-using Ejercicio1.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Modelos;
+using AccesoDatos;
 
-namespace Controllers
+namespace Servicios
 {
     public class ServicioPersonas : ServicioBase
     {
@@ -48,10 +48,6 @@ namespace Controllers
             {
                 throw new Exception("Verificar " + falla);
             }
-            else
-            {
-                _accesoDatos.Modificar(persona);
-            }
 
             _accesoDatos.Modificar(persona);
         }
@@ -95,13 +91,13 @@ namespace Controllers
 
         public bool ValidarPersona(PersonaBase persona, out string propfallida)
         {
-            if (!ValidarExtension(persona.Nombre.Trim(), 20))
+            if (persona.Nombre == null || !ValidarExtension(persona.Nombre.Trim(), 20))
             {
                 propfallida = "Nombre";
                 return false;
             }
 
-            if (!ValidarExtension(persona.Apellido.Trim(), 20))
+            if (persona.Apellido == null || !ValidarExtension(persona.Apellido.Trim(), 20))
             {
                 propfallida = "Apellido";
                 return false;
@@ -119,10 +115,7 @@ namespace Controllers
                 return false;
             }
 
-
             propfallida = "ninguna";
-            //Al dope
-
             return true;
         }
 

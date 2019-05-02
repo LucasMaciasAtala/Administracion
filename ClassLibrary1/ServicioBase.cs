@@ -1,4 +1,4 @@
-﻿namespace Controllers
+﻿namespace Servicios
 {
     public abstract class ServicioBase
     {

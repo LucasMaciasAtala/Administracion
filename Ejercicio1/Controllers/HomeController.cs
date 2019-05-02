@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web;
 
-namespace Ejercicio1.Controllers
+namespace Administracion.Controllers
 {
     public class HomeController : Controller
     {

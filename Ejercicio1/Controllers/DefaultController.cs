@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Ejercicio1.Controllers
+namespace Administracion.Controllers
 {
     public class DefaultController : Controller
     {

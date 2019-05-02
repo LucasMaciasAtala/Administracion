@@ -1,18 +1,16 @@
-﻿using Ejercicio1.Models;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace Ejercicio1.ViewModels
+namespace Administracion.ViewModels
 {
     public class RestaurantVM : ConstruccionBaseVM
     {
         private const string _nombreLength = "50";
         public List<PersonaBase> Empleados { get; set; }
 
-        [DisplayFormat(NullDisplayText = "Sin Manager")]
+        [DisplayFormat(NullDisplayText = "Sin Encargado")]
         public string ManagerNombreCompleto { get; set; }
 
         [Required]

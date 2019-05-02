@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using Ejercicio1.Models;
+using Models;
 
 namespace DataAccess
 {

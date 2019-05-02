@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using DataAccess;
-using Ejercicio1.Models;
+using Models;
 
-namespace Controllers
+namespace Services
 {
     public class ServicioRestaurantes : ServicioBase
     {
@@ -115,13 +115,13 @@ namespace Controllers
         {
             bool esValido = false;
 
-            if (!ValidarExtension(resto.Nombre.Trim(), 20))
+            if (resto.Nombre == null || !ValidarExtension(resto.Nombre.Trim(), 20))
             {
                 falla = "Nombre del Resto";
                 return esValido;
             }
 
-            if (!ValidarExtension(resto.Direccion.Trim(), 30))
+            if (resto.Direccion == null || !ValidarExtension(resto.Direccion.Trim(), 30))
             {
                 falla = "Direccion";
                 return esValido;
@@ -175,7 +175,12 @@ namespace Controllers
             }
         }
 
-        public List<PersonaBase> FiltrarPersonasContratadas(List<PersonaBase> restaurantEmpleados)
+        /// <summary>
+        /// Filtra las personas que ya han sido contratadas en el restaurant
+        /// </summary>
+        /// <param name="restaurantEmpleados">Lista de personas ya contratadas</param>
+        /// <returns>Lista de personas a contratar, sin personas del tipo Encargado</returns>
+        public List<PersonaBase> ObtenerPersonasNoContratadas(List<PersonaBase> restaurantEmpleados)
         {
             var listaLasPersonasSinEncargados = ObtenerPersonasSinEncargado();
             var listaFiltrada = ObtenerPersonasSinEncargado();

@@ -1,11 +1,7 @@
-﻿using Ejercicio1.Models;
-using System;
-using System.Collections.Generic;
+﻿using Models;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace Ejercicio1.ViewModels
+namespace Administracion.ViewModels
 {
     public class CasaVM : ConstruccionBaseVM
     {

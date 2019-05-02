@@ -135,10 +135,6 @@
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Controllers\RestaurantesController.cs" />
-    <Compile Include="Controllers\Servicios\ServicioBase.cs" />
-    <Compile Include="Controllers\Servicios\ServicioCasas.cs" />
-    <Compile Include="Controllers\Servicios\ServicioPersonas.cs" />
-    <Compile Include="Controllers\Servicios\ServicioRestaurantes.cs" />
     <Compile Include="DataAccess\AccesoDatosSqlBase.cs" />
     <Compile Include="DataAccess\AccesoDatosSql_Casas.cs" />
     <Compile Include="DataAccess\AccesoDatosSql_Personas.cs" />
@@ -159,8 +155,14 @@
     <Compile Include="Models\PersonaBase.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ServicioBase.cs" />
+    <Compile Include="Services\ServicioCasas.cs" />
+    <Compile Include="Services\ServicioPersonas.cs" />
+    <Compile Include="Services\ServicioRestaurantes.cs" />
     <Compile Include="ViewModels\CasaVM.cs" />
+    <Compile Include="ViewModels\CheckModel.cs" />
     <Compile Include="ViewModels\ConstruccionBaseVM.cs" />
+    <Compile Include="ViewModels\EmpleadosVM.cs" />
     <Compile Include="ViewModels\RestaurantVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +177,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -186,15 +197,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -203,16 +205,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Personas\Index.cshtml" />
     <Content Include="Views\Personas\Agregar.cshtml" />
-    <Content Include="Views\Personas\Modificar.cshtml" />
     <Content Include="Views\Casas\Index.cshtml" />
     <Content Include="Views\Casas\Agregar.cshtml" />
     <Content Include="Views\Shared\_SelectorDePersonas.cshtml" />
     <Content Include="Views\Restaurantes\Index.cshtml" />
     <Content Include="Views\Restaurantes\Agregar.cshtml" />
+    <Content Include="Views\Restaurantes\VerEmpleados.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

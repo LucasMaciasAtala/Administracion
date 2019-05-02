@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ejercicio1.ViewModels
+namespace Administracion.ViewModels
 {
     public abstract class ConstruccionBaseVM : Models.Entidad
     {

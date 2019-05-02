@@ -1,0 +1,118 @@
+﻿@model Administracion.ViewModels.EmpleadosVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    window.onload = function () {
+        var esValido = @Html.Raw(Json.Encode(Model.ManagerValido));
+        if (esValido == false) {
+            alert("No hay encargado para poder emplear o desemplear. No se guardarán los datos");
+            var btnGuardar = document.getElementById("Guardar")
+            btnGuardar.hidden = true;
+        }
+        console.log(esValido)
+    }
+</script>
+
+<h2 class="mt-3">Restaurante @Model.NombreResto</h2>
+<hr />
+
+@using (Html.BeginForm("VerEmpleadosPost", "Restaurantes", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(x => Model.IdResto)
+
+    <div class="form-group">
+        <div class="col-md-offset-2">
+            <p>
+                <input type="submit" value="Guardar" id="Guardar" class="btn btn-outline-primary" />
+                @Html.ActionLink("Volver", "Index", routeValues: null, htmlAttributes: new { @class = "btn btn-outline-warning" })
+            </p>
+        </div>
+    </div>
+    <hr />
+
+    <div class="form-horizontal">
+        <h2>Empleados</h2>
+        <div class="form-group">
+            <table class="table">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Contratados[0].NombreCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Contratados[0].Documento)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Contratados[0].Trabajo)
+                    </td>
+                    <td>
+                        <b>Marque para Despedir</b>
+                    </td>
+                </tr>
+                @for (int i = 0; i < Model.Contratados.Count; i++)
+                {
+                    @Html.HiddenFor(x => x.Contratados[i].IdEmpleado)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Contratados[i].NombreCompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Contratados[i].Documento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Contratados[i].Trabajo)
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(modelItem => modelItem.Contratados[i].Checkeado)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <hr />
+        <h2>Candidatos</h2>
+
+        <div class="form-group">
+            <table class="table">
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.AContratar[0].NombreCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.AContratar[0].Documento)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.AContratar[0].Trabajo)
+                    </td>
+                    <td>
+                        <b>Marque para Contratar</b>
+                    </td>
+                </tr>
+
+                @for (int i = 0; i < Model.AContratar.Count; i++)
+                {
+                    @Html.HiddenFor(x => x.AContratar[i].IdEmpleado)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.AContratar[i].NombreCompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.AContratar[i].Documento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.AContratar[i].Trabajo)
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(modelItem => modelItem.AContratar[i].Checkeado)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
