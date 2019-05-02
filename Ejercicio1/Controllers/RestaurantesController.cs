@@ -46,9 +46,10 @@ namespace Administracion.Controllers
             {
                 try
                 {
-                    var resto = new Restaurant();
-                    TryUpdateModel(resto);
-                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);//Input required valida desde el cliente para evitar null values
+                    var restoVM = new RestaurantVM(new Restaurant());
+                    TryUpdateModel(restoVM);
+                    var resto = restoVM.ObtenerRestaurantSinEncargado();                    
+                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(restoVM.IdEncargado);
                     _servicioRestaurantes.Agregar(resto);
                 }
                 catch (Exception ex)
@@ -67,10 +68,11 @@ namespace Administracion.Controllers
         public ActionResult Modificar(int id)
         {
             var resto = _servicioRestaurantes.ObtenerPorId(id);
+            var restoVM = new RestaurantVM(resto);
             ViewBag.Managers = _servicioRestaurantes.ObtenerTodosManagers();
             ViewBag.Titulo = "Modificar Restaurant";
             ViewBag.Boton = "Modificar";
-            return View("Agregar", resto);
+            return View("Agregar", restoVM);
         }
 
         [HttpPost, ActionName("Modificar")]
@@ -80,9 +82,10 @@ namespace Administracion.Controllers
             {
                 try
                 {
-                    var resto = new Restaurant();
-                    TryUpdateModel(resto);
-                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(resto.Manager.Id);//Input required valida desde el cliente para evitar null values
+                    var restoVM = new RestaurantVM(new Restaurant());
+                    TryUpdateModel(restoVM);
+                    var resto = restoVM.ObtenerRestaurantSinEncargado();
+                    resto.Manager = _servicioRestaurantes.ObtenerManagerPorId(restoVM.IdEncargado);
                     _servicioRestaurantes.Modificar(resto);
                 }
                 catch (Exception ex)

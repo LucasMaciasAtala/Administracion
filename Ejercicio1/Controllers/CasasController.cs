@@ -38,22 +38,16 @@ namespace Administracion.Controllers
         }
 
         [HttpPost, ActionName("Agregar")]
-        public ActionResult AgregarPost(string idPropietario)
+        public ActionResult AgregarPost()
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var casa = new Casa();
-                    TryUpdateModel(casa);
-
-                    if (idPropietario == string.Empty)//Input required valida previamente
-                    {
-                        return View("Error", new HandleErrorInfo(new Exception("Debe seleccionar un propietario"), "Persona", "Agregar"));
-                    }
-
-                    int.TryParse(idPropietario, out int id);
-                    casa.Propietario = _servicioPersonas.ObtenerPorId(id);
+                    var casaVM = new CasaVM(new Casa());
+                    TryUpdateModel(casaVM);
+                    var casa = casaVM.ObtenerCasaSinPropietario();
+                    casa.Propietario = _servicioPersonas.ObtenerPorId(casaVM.IdPropietario);
                     _servicioCasas.Agregar(casa);
                 }
                 catch (Exception ex)
@@ -72,29 +66,24 @@ namespace Administracion.Controllers
         public ActionResult Modificar(int id)
         {
             var casa = _servicioCasas.ObtenerPorId(id);
+            var casaVM = new CasaVM(casa);
             ViewBag.Propietarios = new List<PersonaBase>(_servicioPersonas.ObtenerTodos());
             ViewBag.Titulo = "Modificar Casa";
             ViewBag.Boton = "Modificar";
-            return View("Agregar", casa);
+            return View("Agregar", casaVM);
         }
 
         [HttpPost]
-        public ActionResult Modificar(string idPropietario)
+        public ActionResult Modificar()
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var casa = new Casa();
-                    TryUpdateModel(casa);
-
-                    if (idPropietario == string.Empty) //Input required valida previamente
-                    {
-                        return View("Error", new HandleErrorInfo(new Exception("Debe seleccionar un propietario"), "Casa", "Agregar"));
-                    }
-
-                    int.TryParse(idPropietario, out int id);
-                    casa.Propietario = _servicioPersonas.ObtenerPorId(id);
+                    var casaVM = new CasaVM(new Casa());
+                    TryUpdateModel(casaVM);
+                    var casa = casaVM.ObtenerCasaSinPropietario();
+                    casa.Propietario = _servicioPersonas.ObtenerPorId(casaVM.IdPropietario);
                     _servicioCasas.Modificar(casa);
                 }
                 catch (Exception ex)

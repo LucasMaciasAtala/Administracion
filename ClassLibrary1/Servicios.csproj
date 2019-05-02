@@ -47,15 +47,5 @@
     <Compile Include="ServicioPersonas.cs" />
     <Compile Include="ServicioRestaurantes.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AccesoDatos\DataAccess.csproj">
-      <Project>{8163c1d0-2593-4122-bbcd-28bc17edf255}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Modelos\Modelos.csproj">
-      <Project>{779cf1d9-248d-4e7b-a61c-5fb6a5d83d65}</Project>
-      <Name>Modelos</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

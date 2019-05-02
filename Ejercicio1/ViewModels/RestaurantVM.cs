@@ -17,6 +17,10 @@ namespace Administracion.ViewModels
         [StringLength(50, ErrorMessage = "Nombre supera la longitud permitida (" + _nombreLength + ")")]
         public string Nombre { get; set; }
 
+        public int IdEncargado { get; set; }
+
+        public Encargado ModeloEncargado { get; set; }//Para <th>
+
         public RestaurantVM(Restaurant resto)
         {
             Direccion = resto.Direccion;
@@ -25,10 +29,21 @@ namespace Administracion.ViewModels
             if (resto.Manager != null)
             {
                 ManagerNombreCompleto = resto.Manager.NombreCompleto;
+                IdEncargado = resto.Manager.Id;
             }
 
             Nombre = resto.Nombre;
             Id = resto.Id;
+        }
+
+        public Restaurant ObtenerRestaurantSinEncargado()
+        {
+            var resto = new Restaurant();
+            resto.Id = Id;
+            resto.Nombre = Nombre;
+            resto.Direccion = Direccion;
+            resto.Empleados = Empleados;
+            return resto;
         }
     }
 }

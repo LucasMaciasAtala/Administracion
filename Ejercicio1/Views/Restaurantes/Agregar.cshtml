@@ -1,4 +1,4 @@
-﻿@model Models.Restaurant
+﻿@model Administracion.ViewModels.RestaurantVM
 @using Models;
 
 @{
@@ -25,16 +25,13 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-horizontal">
-            <h4>Casa</h4>
-            <hr />
             <div class="form-group">
                 @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control",  @required = true, @maxlength = 20 } })
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @required = true, @maxlength = 20 } })
                     @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
 
                 </div>
-
             </div>
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -53,8 +50,8 @@
                     <h2>Seleccionar Encargado</h2>
                     <table class="table">
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.Manager.NombreCompleto)</th>
-                            <th>@Html.DisplayNameFor(model => model.Manager.Documento)</th>
+                            <th>@Html.DisplayNameFor(model => model.ModeloEncargado.NombreCompleto)</th>
+                            <th>@Html.DisplayNameFor(model => model.ModeloEncargado.Documento)</th>
                             <th>Encargado</th>
                         </tr>
                         @foreach (Encargado item in ViewBag.Managers)
@@ -67,7 +64,7 @@
                                     @item.Documento.ToString()
                                 </td>
                                 <td>
-                                    @Html.RadioButtonFor(model => model.Manager.Id, item.Id, htmlAttributes: new { @required = true }) <span>Seleccionar</span>
+                                    @Html.RadioButtonFor(model => model.IdEncargado, item.Id, htmlAttributes: new { @required = true }) <span>Seleccionar</span>
                                 </td>
                             </tr>
                         }

@@ -12,6 +12,10 @@ namespace Administracion.ViewModels
         [DisplayFormat(NullDisplayText = "Sin Propietario")]
         public string NombreCompletoPropietario { get; set; }
 
+        public int IdPropietario { get; set; }
+
+        public Cocinero ModeloPropietario { get; set; }//Para <th>
+
         public CasaVM(Casa casa)
         {
             Descripcion = casa.Descripcion;
@@ -21,7 +25,21 @@ namespace Administracion.ViewModels
             if (casa.Propietario != null)
             {
                 NombreCompletoPropietario = casa.Propietario.NombreCompleto;
+                IdPropietario = casa.Propietario.Id;
             }
+            else
+            {
+                casa.Propietario = new Cocinero();
+            }            
+        }
+
+        public Casa ObtenerCasaSinPropietario()
+        {
+            var casa = new Casa();
+            casa.Id = Id;
+            casa.Descripcion = Descripcion;
+            casa.Direccion = Direccion;
+            return casa;
         }
     }
 }

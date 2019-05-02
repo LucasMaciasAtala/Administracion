@@ -1,6 +1,5 @@
-﻿@model Models.Casa
+﻿@model Administracion.ViewModels.CasaVM
 @using Models;
-
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -47,9 +46,9 @@
                 <h2>Seleccionar Propietario</h2>
                 <table class="table">
                     <tr>
-                        <th>@Html.DisplayNameFor(model => model.Propietario.NombreCompleto)</th>
-                        <th>@Html.DisplayNameFor(model => model.Propietario.Documento)</th>
-                        <th>@Html.DisplayNameFor(model => model.Propietario.Trabajo)</th>
+                        <th>@Html.DisplayNameFor(model => model.ModeloPropietario.NombreCompleto)</th>
+                        <th>@Html.DisplayNameFor(model => model.ModeloPropietario.Documento)</th>
+                        <th>@Html.DisplayNameFor(model => model.ModeloPropietario.Trabajo)</th>
                         <th>Propietario</th>
                     </tr>
                     @foreach (PersonaBase item in ViewBag.Propietarios)
@@ -65,7 +64,7 @@
                                 @item.Trabajo
                             </td>
                             <td>
-                                @Html.RadioButtonFor(model => model.Propietario.Id, item.Id, htmlAttributes: new { @required = true }) <span>Seleccionar</span>
+                                @Html.RadioButtonFor(model => model.IdPropietario, item.Id, htmlAttributes: new { @required = true }) <span>Seleccionar</span>
                             </td>
                         </tr>
                     }
